@@ -19,7 +19,6 @@ class Solution {
         return compare(root.left, root.right, 0);
     }
     private boolean compare(TreeNode left, TreeNode right, int level) {
-        System.out.println();
         if (left == null || right == null) return left == right;
         if (left.val != right.val) return false;
         return compare(left.left, right.right, ++level) && compare(left.right, right.left, ++level);
