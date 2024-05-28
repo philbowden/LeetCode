@@ -19,12 +19,12 @@ class Solution {
         int numDays = 0;
         int runningTotal = 0;
         for (int weight : weights) {
-            if (runningTotal + weight > cap) {
+            runningTotal += weight;
+            if (runningTotal > cap) {
                 numDays++;
                 runningTotal = weight;
-            } else {
-                runningTotal += weight;
             }
+            if (numDays > days) return false;
         }
         numDays++;
         return numDays <= days;
