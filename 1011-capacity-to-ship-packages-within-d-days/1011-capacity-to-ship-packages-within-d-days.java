@@ -24,7 +24,6 @@ class Solution {
                 numDays++;
                 runningTotal = weight;
             }
-            if (numDays > days) return false;
         }
         numDays++;
         return numDays <= days;
