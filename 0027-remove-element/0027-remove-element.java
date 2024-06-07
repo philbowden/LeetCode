@@ -1,10 +1,4 @@
 class Solution {
-    /*
-    [2, 2, 2, 3] val = 3
-        i
-        j
-    
-    */ 
     public int removeElement(int[] nums, int val) {
         if (nums.length == 0) return 0;
         int validSize = 0;
