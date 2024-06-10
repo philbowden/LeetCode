@@ -16,7 +16,7 @@
 class Solution {
     boolean isBalancedTree = true;
     public boolean isBalanced(TreeNode root) {
-        if (root == null) return true;
+        if (root == null) return isBalancedTree;
         dfs(root);
         return isBalancedTree;
     }
