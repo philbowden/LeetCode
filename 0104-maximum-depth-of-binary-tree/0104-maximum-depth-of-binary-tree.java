@@ -17,8 +17,8 @@ class Solution {
     int max = 0;
     public int maxDepth(TreeNode root) {
         if (root == null) return max;
-        dfs(root, 0);
-        return max + 1;
+        dfs(root, 1);
+        return max;
     }
     private void dfs(TreeNode root, int depth) {
         if (root == null) return;
