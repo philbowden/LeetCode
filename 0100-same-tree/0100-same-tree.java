@@ -14,10 +14,24 @@
  * }
  */
 class Solution {
-
+    boolean isSameTree = true;
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null || q == null) return p == null && q == null;
-        if (p.val != q.val) return false;
-        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        preorder(p,q);
+        return isSameTree;
+    }
+    public void preorder(TreeNode p, TreeNode q) {
+        if (p == null || q == null) {
+            if (p == null && q != null || p != null && q == null) {
+                isSameTree = false;
+            }
+            return;
+        }
+        if (p.val != q.val) {
+            isSameTree = false;
+            return;
+        }
+        preorder(p.left, q.left);
+        preorder(p.right, q.right);
     }
 }
