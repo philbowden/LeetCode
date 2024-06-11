@@ -2,10 +2,10 @@ class Solution {
     public int findKthLargest(int[] nums, int k) {
         int n = nums.length, left = 0, right = n-1;
         int kIndex = n - k;
-        Random r = new Random();
+        Random random = new Random();
 
         while(left < right) {
-            int randomIdx = r.nextInt(right - left + 1) + left;
+            int randomIdx = random.nextInt(right - left + 1) + left;
             int pivot = partition(nums, left, right, randomIdx);
             if (pivot == kIndex) break;
             else if (pivot > kIndex) right = pivot-1;
