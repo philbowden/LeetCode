@@ -11,11 +11,3 @@ class Solution {
         return max;
     }
 }
-/**
-set [cb]
-max 3
-abcabcbb
-     i 
-       j
-
- */
