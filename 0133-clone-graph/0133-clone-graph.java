@@ -23,7 +23,7 @@ class Solution {
     public Node cloneGraph(Node node) {
         this.map = new HashMap<>();
         return clone(node);
-   }
+    }
     private Node clone(Node node) {
         if (node == null) return null;
         if (map.containsKey(node.val)) {
