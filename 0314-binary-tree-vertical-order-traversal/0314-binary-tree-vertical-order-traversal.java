@@ -15,44 +15,34 @@
  */
 class Solution {
     public List<List<Integer>> verticalOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        if (root == null) return res;
-
-        int minLeft = 0;
-        int maxRight = 0;
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
 
         Map<Integer, List<Integer>> map = new HashMap<>();
-        Queue<TreeNode> q = new LinkedList<>();
-        Queue<Integer> posQ = new LinkedList<>();
-        q.add(root);
-        posQ.add(0);
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.add((new Pair<>(root, 0)));
 
-        while(!q.isEmpty()) {
-            int size = q.size();
+        int minIndex = 0, maxIndex = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
             for (int i = 0; i < size; i++) {
-                TreeNode cur = q.poll();
-                int currentPos = posQ.poll();
+                Pair<TreeNode, Integer> pair = queue.poll();
                 
-                if (!map.containsKey(currentPos)) map.put(currentPos, new ArrayList<>());
-                map.get(currentPos).add(cur.val);
+                int index = pair.getValue();
+                minIndex = Math.min(minIndex, index);
+                maxIndex = Math.max(maxIndex, index);
                 
-                if (cur.left != null) {
-                    q.add(cur.left);
-                    posQ.add(currentPos-1);
-                    minLeft = Math.min(minLeft, currentPos-1);
-                }
-                if (cur.right != null) {
-                    q.add(cur.right);
-                    posQ.add(currentPos+1);
-                    maxRight = Math.max(maxRight, currentPos+1);
-                }
+                if (!map.containsKey(index)) map.put(index, new ArrayList<>());
+                map.get(index).add(pair.getKey().val);
+                
+                TreeNode node = pair.getKey();
+                if (node.left != null) queue.add(new Pair<>(node.left, index-1));
+                if (node.right != null) queue.add(new Pair<>(node.right, index+1));
             }
         }
-        for (int i = minLeft; i <= maxRight; i++) {
-            if (map.containsKey(i)) {
-                res.add(map.get(i));
-            }
+        for (int i = minIndex; i <= maxIndex; i++) {
+            if (map.containsKey(i)) result.add(map.get(i));
         }
-        return res;
+        return result;
     }
 }
