@@ -15,10 +15,7 @@ class Solution {
     private String getKey(String s) {
         char[] characters = s.toCharArray();
         Arrays.sort(characters);
-        StringBuilder sb = new StringBuilder();
-        for (char c : characters) {
-            sb.append(c);
-        }
-        return sb.toString();
+        String key = new String(characters);
+        return key;
     }
 }
