@@ -14,7 +14,6 @@ public int characterReplacement(String s, int k) {
             while(j - i - maxCount + 1 > k) {
                 char start = s.charAt(i++);
                 map.put(start, map.get(start) - 1);
-                if (map.get(start) == 0) map.remove(start);
             }
 
             maxLength = Math.max(maxLength, j - i + 1);
