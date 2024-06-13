@@ -8,8 +8,7 @@ public int characterReplacement(String s, int k) {
         while(j < n) {
             char current = s.charAt(j);
             map.put(current, map.getOrDefault(current, 0) + 1);
-            int currentCount = map.get(current);
-            maxCount = Math.max(maxCount, currentCount);
+            maxCount = Math.max(maxCount, map.get(current));
 
             while(j - i - maxCount + 1 > k) {
                 char start = s.charAt(i++);
