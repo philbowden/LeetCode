@@ -3,7 +3,7 @@ class Solution {
         long left = 0, right = x;
         
         while(left < right) {
-            long mid = left + (right - left) / 2 + 1;
+            long mid = left + (right - left + 1) / 2;
             long cur = mid * mid;
             if (cur == x) return (int)mid;
             else if (cur < x) left = mid;
