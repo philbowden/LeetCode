@@ -14,18 +14,18 @@
  * }
  */
 class Solution {
-    int goodNodeCount = 0;
+    int nodeCount = 0;
     public int goodNodes(TreeNode root) {
-        if (root == null) return goodNodeCount;
+        this.nodeCount = 0;
         dfs(root, root.val);
-        return goodNodeCount;
+        return nodeCount;
     }
-    private void dfs(TreeNode root, int max) {
-        if (root == null) return;
-
-        if (root.val >= max) goodNodeCount++;
-        int currentMax = Math.max(root.val, max);
-        dfs(root.left, currentMax);
-        dfs(root.right, currentMax);
+    private void dfs(TreeNode node, int max) {
+        if (node == null) return;
+        
+        if (node.val >= max) nodeCount++;
+        max = Math.max(max, node.val);
+        dfs(node.left, max);
+        dfs(node.right, max);
     }
 }
