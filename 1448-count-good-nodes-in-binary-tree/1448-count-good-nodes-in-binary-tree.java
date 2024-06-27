@@ -14,18 +14,17 @@
  * }
  */
 class Solution {
-    int nodeCount = 0;
+    int count = 0;
     public int goodNodes(TreeNode root) {
-        this.nodeCount = 0;
-        dfs(root, root.val);
-        return nodeCount;
+        if (root == null) return count;
+        preorder(root, Integer.MIN_VALUE);
+        return count;
     }
-    private void dfs(TreeNode node, int max) {
+    private void preorder(TreeNode node, int min) {
         if (node == null) return;
-        
-        if (node.val >= max) nodeCount++;
-        max = Math.max(max, node.val);
-        dfs(node.left, max);
-        dfs(node.right, max);
+
+        if (node.val >= min) count++;
+        preorder(node.left, Math.max(min, node.val));
+        preorder(node.right, Math.max(min, node.val));
     }
 }
