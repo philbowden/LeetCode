@@ -1,74 +1,69 @@
 class Solution {
-    private static final int[][] DIRECTIONS = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+    public static final int[][] DIRECTIONS = {{0,-1},{-1,0},{0,1},{1,0}};
+    private int[][] heights;
     private int numRows;
     private int numCols;
-    private int[][] heights;
-
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
-        // Check if input is empty
-        if (heights.length == 0 || heights[0].length == 0) {
-            return new ArrayList<>();
-        }
+        List<List<Integer>> res = new ArrayList<>();
+        if (heights.length == 0) return res;
 
-        // Save initial values to parameters
+        this.heights = heights;
         numRows = heights.length;
         numCols = heights[0].length;
-        this.heights = heights;
 
-        // Setup each queue with cells adjacent to their respective ocean
         Queue<int[]> pacificQueue = new LinkedList<>();
         Queue<int[]> atlanticQueue = new LinkedList<>();
+
         for (int i = 0; i < numRows; i++) {
-            pacificQueue.offer(new int[]{i, 0});
-            atlanticQueue.offer(new int[]{i, numCols - 1});
+            pacificQueue.offer(new int[] {i, 0});
+            atlanticQueue.offer(new int[] {i, numCols-1});
         }
-        for (int i = 0; i < numCols; i++) {
-            pacificQueue.offer(new int[]{0, i});
-            atlanticQueue.offer(new int[]{numRows - 1, i});
+        for (int j = 0; j < numCols; j++) {
+            pacificQueue.offer(new int[] {0,j});
+            atlanticQueue.offer(new int[] {numRows-1, j});
         }
 
-        // Perform a BFS for each ocean to find all cells accessible by each ocean
-        boolean[][] pacificReachable = bfs(pacificQueue);
-        boolean[][] atlanticReachable = bfs(atlanticQueue);
+        boolean[][] pacReachable = bfs(pacificQueue);
+        boolean[][] atlReachable = bfs(atlanticQueue);
 
-        // Find all cells that can reach both oceans
-        List<List<Integer>> commonCells = new ArrayList<>();
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                if (pacificReachable[i][j] && atlanticReachable[i][j]) {
-                    commonCells.add(Arrays.asList(i,j));
+                if (pacReachable[i][j] && atlReachable[i][j]) {
+                    res.add(Arrays.asList(i,j));
                 }
             }
         }
-        return commonCells;
+
+        return res;
     }
 
     private boolean[][] bfs(Queue<int[]> queue) {
         boolean[][] reachable = new boolean[numRows][numCols];
-        while (!queue.isEmpty()) {
+
+        while(!queue.isEmpty()) {
             int[] cell = queue.poll();
-            // This cell is reachable, so mark it
             reachable[cell[0]][cell[1]] = true;
-            for (int[] dir : DIRECTIONS) { // Check all 4 directions
-                int newRow = cell[0] + dir[0];
-                int newCol = cell[1] + dir[1];
-                // Check if new cell is within bounds
-                if (newRow < 0 || newRow >= numRows || newCol < 0 || newCol >= numCols) {
+
+            for (int[] dir : DIRECTIONS) {
+                int currentRow = cell[0] + dir[0];
+                int currentCol = cell[1] + dir[1];
+
+                if (currentRow < 0 || currentRow >= numRows || currentCol < 0 || currentCol >= numCols) {
                     continue;
                 }
-                // Check that the new cell hasn't already been visited
-                if (reachable[newRow][newCol]) {
+
+                if (reachable[currentRow][currentCol]) {
                     continue;
                 }
-                // Check that the new cell has a higher or equal height,
-                // So that water can flow from the new cell to the old cell
-                if (heights[newRow][newCol] < heights[cell[0]][cell[1]]) {
+
+                if (heights[currentRow][currentCol] < heights[cell[0]][cell[1]]) {
                     continue;
                 }
-                // If we've gotten this far, that means the new cell is reachable
-                queue.offer(new int[]{newRow, newCol});
+
+                queue.offer(new int[] {currentRow, currentCol});
             }
         }
+
         return reachable;
     }
 }
