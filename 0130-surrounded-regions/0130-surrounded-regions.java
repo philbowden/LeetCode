@@ -27,7 +27,9 @@ class Solution {
         if (i < 0 || i >= numRows || j < 0 || j >= numCols || board[i][j] != 'O') {
             return;
         }
+        
         board[i][j] = 'Z';
+        
         if (i < numRows-1 && board[i+1][j] == 'O') traverse(i+1,j);
         
         if (i > 0 && board[i-1][j] == 'O') traverse(i-1,j);
