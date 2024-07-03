@@ -21,15 +21,20 @@ class Solution {
                 if (board[i][j] == 'Z') board[i][j] = 'O';
             }
         }
+
     }
     private void traverse(int i, int j) {
         if (i < 0 || i >= numRows || j < 0 || j >= numCols || board[i][j] != 'O') {
             return;
         }
         board[i][j] = 'Z';
-        traverse(i+1,j);
-        traverse(i-1,j);
-        traverse(i,j+1);
-        traverse(i,j-1);
+        if (i < numRows-1 && board[i+1][j] == 'O') traverse(i+1,j);
+        
+        if (i > 0 && board[i-1][j] == 'O') traverse(i-1,j);
+        
+        if (j < numCols-1 && board[i][j+1] == 'O') traverse(i,j+1);
+        
+        if (j > 0 && board[i][j-1] == 'O') traverse(i,j-1);
+        
     }
 }
