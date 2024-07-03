@@ -18,10 +18,6 @@ class Solution {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 if (board[i][j] == 'O') board[i][j] = 'X';
-            }
-        }
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
                 if (board[i][j] == 'Z') board[i][j] = 'O';
             }
         }
