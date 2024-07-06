@@ -29,7 +29,7 @@ class Solution {
                 
                 if (cur.right != null) {
                     q.add(cur.right);
-                } 
+                }
                 if (cur.left != null) {
                     q.add(cur.left);
                 }
