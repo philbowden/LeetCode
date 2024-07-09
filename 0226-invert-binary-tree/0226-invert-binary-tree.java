@@ -25,6 +25,7 @@ class Solution {
                 TreeNode cur = q.poll();
                 if (cur.left != null) q.add(cur.left);
                 if (cur.right != null) q.add(cur.right);
+
                 TreeNode temp = cur.left;
                 cur.left = cur.right;
                 cur.right = temp;
