@@ -11,6 +11,6 @@ class Solution {
             suff *= (double)nums[n - i - 1];
             max = (int)Math.max(max, Math.max(pre, suff));
         }
-        return ans;
+        return max;
     }
 }
