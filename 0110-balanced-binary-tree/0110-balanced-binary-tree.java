@@ -14,18 +14,20 @@
  * }
  */
 class Solution {
-    boolean treeIsBalanced = true;
+    boolean isTreeBalanced = true;
     public boolean isBalanced(TreeNode root) {
-        if (root == null) return true;
-        postorder(root);
-        return treeIsBalanced;
+        if (root == null) return isTreeBalanced;
+        dfs(root);
+        return isTreeBalanced;
     }
-    private int postorder(TreeNode node) {
-        if (node == null) return 0;
-        int left = postorder(node.left);
-        int right = postorder(node.right);
+    private int dfs(TreeNode root) {
+        if (root == null) return 0;
+
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+
         int diff = Math.abs(left - right);
-        if (diff > 1) treeIsBalanced = false;
+        if (diff > 1) isTreeBalanced = false;
         return Math.max(left, right) + 1;
     }
 }
