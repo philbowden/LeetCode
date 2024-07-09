@@ -16,13 +16,14 @@
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         if (root == null) return false;
-        if (root.val == subRoot.val && sameTree(root, subRoot)) return true;
+        if (root.val == subRoot.val && preorder(root, subRoot)) return true;
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
-    private boolean sameTree(TreeNode node, TreeNode subRoot) {
-        if (node == null && subRoot == null) return true;
-        if (node == null || subRoot == null) return false;
+    private boolean preorder(TreeNode node, TreeNode subRoot) {
+        if (node == null || subRoot == null) {
+            return node == null && subRoot == null;
+        }
         if (node.val != subRoot.val) return false;
-        return sameTree(node.left, subRoot.left) && sameTree(node.right, subRoot.right);
+        return preorder(node.left, subRoot.left) && preorder(node.right, subRoot.right);
     }
 }
