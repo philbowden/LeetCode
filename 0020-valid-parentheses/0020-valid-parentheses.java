@@ -2,18 +2,14 @@ class Solution {
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
         Map<Character, Character> map = new HashMap<>();
-        map.put('(',')');
-        map.put('{','}');
         map.put('[',']');
-        
-        for (int i = 0; i < s.length(); i++) {
-            char cur = s.charAt(i);
-            if (map.containsKey(cur)) stack.push(map.get(cur));
-            else {
-                if (stack.isEmpty()) return false;
-                else if (!stack.isEmpty() && stack.peek() != cur) return false;
-                else stack.pop();
-            }
+        map.put('{','}');
+        map.put('(',')');
+
+        for (char c : s.toCharArray()) {
+            if (map.containsKey(c)) {
+                stack.push(map.get(c));
+            } else if (stack.isEmpty() || stack.pop() != c) return false;
         }
         return stack.isEmpty();
     }
