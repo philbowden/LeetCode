@@ -1,21 +1,20 @@
 class Solution {
-public String minRemoveToMakeValid(String s) {
-        int opens = 0;
+    public String minRemoveToMakeValid(String s) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
+        int opens = 0;
+        for (char c : s.toCharArray()) {
             if (c == '(') {
-                opens++;
                 sb.append(c);
-            }
-            else if (c == ')' && opens > 0) {
+                opens++;
+            } else if (c == ')' && opens > 0) {
                 sb.append(c);
                 opens--;
+            } else if (c != ')') {
+                sb.append(c);
             }
-            else if (c != ')') sb.append(c);
         }
         if (opens > 0) {
-            for (int i = sb.length() - 1; i >= 0; i--) {
+            for (int i = sb.length()-1; i >= 0; i--) {
                 char c = sb.charAt(i);
                 if (c == '(' && opens > 0) {
                     sb.deleteCharAt(i);
