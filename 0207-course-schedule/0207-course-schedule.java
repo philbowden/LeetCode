@@ -15,12 +15,18 @@ class Solution {
         return true;
     }
     private boolean dfs(int course) {
-        if (set.contains(course)) return false;
-        if (map.containsKey(course) && map.get(course).size() == 0) return true;
+        if (set.contains(course)) {
+            return false;
+        }
+        if (map.containsKey(course) && map.get(course).isEmpty()) {
+            return true;
+        }
 
         set.add(course);
         List<Integer> prereqs = new ArrayList<>();
-        if (map.containsKey(course)) prereqs = map.get(course);
+        if (map.containsKey(course)) {
+            prereqs = map.get(course);
+        }
         for (int c : prereqs) {
             if (!dfs(c)) return false;
         }
