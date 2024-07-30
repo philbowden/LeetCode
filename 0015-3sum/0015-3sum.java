@@ -11,7 +11,6 @@ class Solution {
                 int sum = nums[i] + nums[left] + nums[right];
                 if (sum == 0) {
                     List<Integer> triplet = Arrays.asList(nums[i], nums[left], nums[right]);
-                    Collections.sort(triplet);
                     if (!set.contains(triplet)) res.add(triplet);
                     set.add(triplet);
                     left++;
