@@ -15,16 +15,15 @@
  */
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
+        if (root == null) return new ArrayList<>();
         List<Integer> res = new ArrayList<>();
-        if (root == null) return res;
-        iot(root, res);
+        traverse(res, root);
         return res;
     }
-    private void iot(TreeNode node, List<Integer> res) {
+    private void traverse(List<Integer> list, TreeNode node) {
         if (node == null) return;
-        
-        iot(node.left, res);
-        res.add(node.val);
-        iot(node.right, res);
+        traverse(list, node.left);
+        list.add(node.val);
+        traverse(list, node.right);
     }
 }
