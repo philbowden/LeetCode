@@ -1,65 +1,56 @@
-public class Solution {
-    public static void main(String[] args) {
-        int[] edges = {3,3,4,2,3};
-        System.out.println(new Solution().longestCycle(edges));
-    }
-
+class Solution {
     public int longestCycle(int[] edges) {
+        //make graph (hashmap)
         int n = edges.length;
         Map<Integer, List<Integer>> graph = new HashMap<>();
         int[] indegrees = new int[n];
 
-        //add nodes to graph
         for (int i = 0; i < n; i++) {
             graph.put(i, new ArrayList<>());
         }
-
-        //add edges to graph
+        //add dependents
         for (int i = 0; i < n; i++) {
             if (edges[i] != -1) {
                 graph.get(i).add(edges[i]);
                 indegrees[edges[i]]++;
             }
         }
-
-        //add zero indegree nodes to queue
+        //loop over edges and find nodes without dependents
         Queue<Integer> q = new LinkedList<>();
+        boolean[] visited = new boolean[n];
         for (int i = 0; i < n; i++) {
             if (indegrees[i] == 0) {
                 q.add(i);
+                visited[i] = true;
             }
         }
-
-        //traverse the graph to find cycle
-        boolean[] visited = new boolean[n];
-        while (!q.isEmpty()) {
+        //process nodes track with boolean array
+        int max = -1;
+        while(!q.isEmpty()) {
             int node = q.poll();
-            for (int dependentNode : graph.get(node)) {
-                if (--indegrees[dependentNode] == 0) {
-                    q.add(dependentNode);
+            for (int dependent : graph.get(node)) {
+                if (--indegrees[dependent] == 0) {
+                    q.add(dependent);
+                    visited[dependent] = true;
                 }
             }
-            visited[node] = true;
         }
-        //loop over visited to get max
-        int max = -1;
+        //check for cycles and length
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
-                max = Math.max(max, calculateCycleLength(visited, edges, i));
+                max = Math.max(max, getLength(visited, edges, i));
             }
         }
         return max;
     }
-
-    private int calculateCycleLength(boolean[] visited, int[] edges, int node) {
-        int current = edges[node];
+    private int getLength(boolean[] visited, int[] edges, int node) {
         int count = 1;
-        while (current != node) {
-            visited[current] = true;
-            current = edges[current];
+        int current = edges[node];
+        while(current != node) {
             count++;
+            current = edges[current];
+            visited[current] = true;
         }
         return count;
     }
-
 }
