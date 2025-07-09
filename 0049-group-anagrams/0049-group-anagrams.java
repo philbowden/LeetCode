@@ -1,5 +1,5 @@
 class Solution {
-    public List<List<String>> groupAnagrams(String[] strs) {
+       public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
         for (String s : strs) {
             String key = createKey(s);
